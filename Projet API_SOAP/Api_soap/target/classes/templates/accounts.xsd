@@ -1,0 +1,71 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://example.com/demo/ws"
+           targetNamespace="http://example.com/demo/ws" elementFormDefault="qualified">
+
+    <!-- Requête pour obtenir le solde -->
+    <xs:element name="getBalanceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Réponse pour obtenir le solde -->
+    <xs:element name="getBalanceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="balance" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Requête pour obtenir les transactions -->
+    <xs:element name="getTransactionsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountId" type="xs:long"/>
+                <xs:element name="pageNumber" type="xs:int"/>
+                <xs:element name="pageSize" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Réponse pour obtenir les transactions -->
+    <xs:element name="getTransactionsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactions" type="tns:transaction" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Structure des transactions -->
+    <xs:complexType name="transaction">
+        <xs:sequence>
+            <xs:element name="amount" type="xs:decimal"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="date" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Requête pour effectuer un virement -->
+    <xs:element name="transferFundsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fromAccountId" type="xs:long"/>
+                <xs:element name="toAccountId" type="xs:long"/>
+                <xs:element name="amount" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Réponse pour effectuer un virement -->
+    <xs:element name="transferFundsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
